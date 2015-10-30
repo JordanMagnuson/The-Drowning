@@ -2,6 +2,7 @@ package
 {
 	import net.flashpunk.FP;
 	import net.flashpunk.Sfx;
+	import net.flashpunk.tweens.misc.Alarm;
 	import net.flashpunk.tweens.sound.SfxFader;
 	
 	/**
@@ -16,6 +17,8 @@ package
 		public var sndDrowning:Sfx = new Sfx(Assets.SND_DROWNING);
 		public var drowningFader:SfxFader;
 		
+		public var escapeAlarm:Alarm;
+		
 		public function PersonGrabbed(x:Number = 0, y:Number = 0, angle:Number = 0, health:Number = 100, maxHealth:Number = 100) 
 		{
 			super(x, y, angle, health, maxHealth);
@@ -25,8 +28,13 @@ package
 		
 		override public function added():void
 		{
+			Global.globalPerson = this;
 			addTween(drowningFader);
 			super.added();
+
+			escapeAlarm = new Alarm(Global.MAX_TIME_IN_HAND, escape);
+			addTween(escapeAlarm);
+			escapeAlarm.start();			
 		}
 		
 		override public function update():void
@@ -77,7 +85,7 @@ package
 			
 			super.update();
 		}
-		
+			
 		override public function removed():void
 		{
 			heartbeatFader.cancel();
@@ -88,6 +96,62 @@ package
 			}
 			if (sndDrowning.playing) sndDrowning.stop();
 			super.removed();
+		}		
+		
+		public function escape():void 
+		{
+			// Swim free.
+			if (!Global.personGrabbed) {
+				return;
+			}
+			
+			if (this.underWater()) {
+				var swimmer:PersonSwimming;
+				FP.world.add(swimmer = new PersonSwimming(this.x, this.y, this.image.angle, Global.BASE_HEALTH, this.maxHealth));
+				swimmer.sndHeartbeat = this.sndHeartbeat;
+				Global.personGrabbed = null;	
+				trace('people killed ' + Global.peopleKilled);
+				escapeAlarm.cancel();
+				
+				// Increase tension. See startDrowning() in PersonDrowning.as
+				Global.peopleKilled += 1;
+				Global.bloodOverlay.updateAlpha();	
+				trace('Global.peopleKilled: ' + Global.peopleKilled);
+				Global.scareDistance = Global.peopleKilled * 20;		
+				Global.scareDistanceAfter = Global.scareDistance * 4;
+				
+				// Ambient sounds
+				if (Global.peopleKilled == 1 && !Global.ambientController.sndHell01.playing)
+				{
+					Global.ambientController.playSpecificSound(Global.ambientController.sndHell01);
+				}	
+				else if (Global.peopleKilled == 2 && !Global.ambientController.sndHell02.playing)
+				{
+					Global.ambientController.playSpecificSound(Global.ambientController.sndHell02);
+				}		
+				else if (Global.peopleKilled == 3 && !Global.ambientController.sndHell03.playing)
+				{
+					Global.ambientController.playSpecificSound(Global.ambientController.sndHell03);
+				}	
+				else if (Global.peopleKilled >= 4 && !Global.ambientController.started)
+				{
+					Global.ambientController.start();
+				}									
+				
+				this.destroy();
+			}
+		}
+		
+		public function underWater():Boolean 
+		{
+			if (y > floatLevel + Global.FLOAT_LEVEL_VARIATION)
+			{
+				return true;
+			}				
+			else 
+			{
+				return false;
+			}
 		}		
 		
 		//public function stopHeartbeat():void
