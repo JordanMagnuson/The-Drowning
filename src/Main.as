@@ -9,10 +9,10 @@ package
 		public function Main() 
 		{
 			super(800, 600, 60);
-			//FP.screen.color = Colors.BLACK;
+			FP.screen.color = Colors.WHITE;
 			
 			// Console for debugging
-			//FP.console.enable();		
+			FP.console.enable();		
 			
 			FP.world = new Game;
 			
