@@ -22,8 +22,8 @@ package
 		
 		public static const WATER_LINE:Number = Global.WATER_LINE + Global.FLOAT_LEVEL_VARIATION;
 		
-		public var handOpen:Image = new Image(Assets.HAND_CURSOR_OPEN);
-		public var handClosed:Image = new Image(Assets.HAND_CURSOR_CLOSED);
+		public var handOpen:RippleImage = new RippleImage(Assets.HAND_CURSOR_OPEN, null, Assets.HAND_CURSOR_OPEN_UNDERWATER);
+		public var handClosed:RippleImage = new RippleImage(Assets.HAND_CURSOR_CLOSED, null, Assets.HAND_CURSOR_CLOSED_UNDERWATER);
 		public var handOpenMask:Pixelmask = new Pixelmask(Assets.HAND_CURSOR_OPEN);
 		
 		public static var sndGrab:Sfx = new Sfx(Assets.SND_GRAB);
@@ -189,25 +189,18 @@ package
 			// Icon
 			if (Global.personGrabbed)
 			{
-				graphic = handClosed;
-				//handClosed.alpha = 1;
-				//handClosed.alpha = 0.5;
-				
 				// Plunge sound
-				if (y > Global.personGrabbed.floatLevel + Global.FLOAT_LEVEL_VARIATION && lastY < Global.personGrabbed.floatLevel + Global.FLOAT_LEVEL_VARIATION)
+				if (y >= Global.personGrabbed.floatLevel + Global.FLOAT_LEVEL_VARIATION && lastY < Global.personGrabbed.floatLevel + Global.FLOAT_LEVEL_VARIATION)
 				{
 					trace('plunge');
 					sndPlunge.play();
 					sndSplashDown.play();
 					sndSplashUp.play();
+					(Global.personGrabbed as PersonGrabbed).escapeAlarm.reset(Global.MAX_TIME_IN_HAND);
 				}				
 			}				
-			else if (overlapPerson)
-			{
-				graphic = handOpen;
-				//mask = handOpenMask;
-				//handOpen.alpha = 1;
-				//overlapPerson.image.color = Colors.BLOOD_RED;
+			if (Input.mouseDown) {
+				graphic = handClosed;
 			}
 			else
 			{
@@ -240,19 +233,6 @@ package
 			else if (jerking)
 			{
 				stopJerking();
-			}
-			
-			if (Global.personGrabbed && y > Global.personGrabbed.floatLevel + Global.FLOAT_LEVEL_VARIATION)
-			{
-				(graphic as Image).alpha = Global.UNDERWATER_ALPHA;
-			}
-			else if (y > Global.WATER_LINE + Global.FLOAT_LEVEL_VARIATION)
-			{
-				(graphic as Image).alpha = Global.UNDERWATER_ALPHA;
-			}
-			else
-			{
-				(graphic as Image).alpha = 1;
 			}
 			
 			// Last y
