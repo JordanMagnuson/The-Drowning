@@ -14,7 +14,7 @@ package
 	 */
 	public class Person extends Entity
 	{
-		public var image:Image = Image.createRect(Global.PERSON_WIDTH, Global.PERSON_HEIGHT, Colors.WHITE);
+		public var image:RippleImage = new RippleImage(Assets.PERSON, null, Assets.PERSON_UNDERWATER);
 		public var health:Number;
 		public var maxHealth:Number;
 		public var floatLevel:Number;
@@ -39,11 +39,11 @@ package
 			super(x, y, image);
 			//setHitbox(image.width * 2, image.height * 2, image.width, image.height);
 			type = 'person';
-			image.color = Colors.BLACK;
+			//image.color = Colors.BLACK;
 			image.angle = angle;
 			this.health = health;
 			this.maxHealth = maxHealth;
-			this.floatLevel = Global.WATER_LINE + FP.random * Global.FLOAT_LEVEL_VARIATION;
+			this.floatLevel = Global.WATER_LINE;
 			//this.floatLevel = y;
 			
 			// Hitbox
@@ -55,6 +55,7 @@ package
 		
 		override public function added():void
 		{
+			Global.globalPerson = this;
 			addTween(heartbeatFader);
 			super.added();
 		}
@@ -67,16 +68,16 @@ package
 			if (x > FP.width) x = FP.width;			
 			
 			// Last person commits suicide
-			if (Global.peopleKilled >= Global.NUMBER_OF_PEOPLE - 1 && FP.distance(x, y, Global.mouseController.x, Global.mouseController.y) < Global.scareDistance)
-			{
-				trace('suicide attempt');
-				if (this.getClass() != PersonDrowning)
-				{
-					trace('real suicide');
-					FP.world.add(new PersonDrowning(x, y, image.angle, health, maxHealth, image.scale));
-					this.destroy();
-				}
-			}
+			//if (Global.peopleKilled >= Global.NUMBER_OF_PEOPLE - 1 && FP.distance(x, y, Global.mouseController.x, Global.mouseController.y) < Global.scareDistance)
+			//{
+				//trace('suicide attempt');
+				//if (this.getClass() != PersonDrowning)
+				//{
+					//trace('real suicide');
+					//FP.world.add(new PersonDrowning(x, y, image.angle, health, maxHealth, image.scale));
+					//this.destroy();
+				//}
+			//}
 			
 			super.update();
 		}

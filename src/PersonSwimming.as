@@ -21,7 +21,7 @@ package
 		public function PersonSwimming(x:Number = 0, y:Number = 0, angle:Number = 0, health:Number = 100, maxHealth:Number = 100) 
 		{
 			super(x, y, angle, health, maxHealth);
-			image.alpha = Global.UNDERWATER_ALPHA;
+			//image.alpha = Global.UNDERWATER_ALPHA;
 		}
 		
 		override public function update():void
@@ -43,9 +43,10 @@ package
 			}
 			else
 			{
-				FP.world.add(new PersonDrowning(x, y, image.angle, health, maxHealth, image.scale));
-				sndHeartbeat.stop();
-				this.destroy();
+				trace('would have died?');
+				//FP.world.add(new PersonDrowning(x, y, image.angle, health, maxHealth, image.scale));
+				//sndHeartbeat.stop();
+				//this.destroy();
 			}
 			
 			if (mover && scaredMover && scared)
@@ -67,6 +68,7 @@ package
 		
 		override public function added():void
 		{
+			Global.globalPerson = this;
 			FP.alarm(1, allowScare);
 			swimUp();
 			super.added();

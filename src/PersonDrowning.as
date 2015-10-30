@@ -38,6 +38,7 @@ package
 		
 		override public function added():void
 		{
+			Global.globalPerson = this;
 			FP.alarm(0.5, playSound);
 			FP.alarm(1, startDrowning);
 		}

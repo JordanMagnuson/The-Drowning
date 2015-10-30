@@ -15,7 +15,7 @@ package
 	 */
 	public class PersonGasping extends Person
 	{
-		public static const GASP_FLOAT_DISTANCE:Number = 10;	
+		public static const GASP_FLOAT_DISTANCE:Number = 15;	
 		
 		public static const MIN_FLOAT_X:Number = 0;			
 		public static const MAX_FLOAT_X:Number = 0;	// 20	
@@ -25,7 +25,7 @@ package
 		public static const FLOAT_DURATION:Number = 1;	// Used INSTEAD of FLOAT_SPEED, depending on which you want to be constant
 		
 		public static const MIN_ANGLE_CHANGE:Number = 0;
-		public static const MAX_ANGLE_CHANGE:Number = 0;
+		public static const MAX_ANGLE_CHANGE:Number = 10;
 		
 		//public static const BREATH_SCALE_CHANGE:Number = 0.01;
 		//public static const BREATH_DURATION_CHANGE:Number = 0.1;
@@ -60,6 +60,7 @@ package
 		
 		override public function added():void
 		{
+			Global.globalPerson = this;		
 			floatDown();
 			breatheIn(0.1);
 			sndSplashUp.play();

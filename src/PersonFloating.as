@@ -60,6 +60,7 @@ package
 		
 		override public function added():void
 		{
+			Global.globalPerson = this;
 			FP.alarm(FP.random * breathDuration, breatheIn);
 			if (phaseDelay > 0) 
 			{
