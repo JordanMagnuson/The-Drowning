@@ -12,7 +12,7 @@ package
 	{
 		public static const SPEED:Number = 0.1;
 		
-		public var spritemap:Spritemap = new Spritemap(Assets.BUBBLE, 11, 11);					
+		public var spritemap:RippleSpritemap = new RippleSpritemap(Assets.BUBBLE, 11, 11);					
 		
 		public function Bubble(x:Number = 0, y:Number = 0) 
 		{
@@ -26,7 +26,7 @@ package
 		
 		override public function update():void
 		{
-			if (spritemap.complete)
+			if (spritemap.complete || y < waterline())
 				FP.world.remove(this);
 				
 			y -= SPEED;
@@ -35,6 +35,12 @@ package
 		override public function added():void
 		{
 			spritemap.play('go');
+		}
+		
+		public function waterline():Number
+		{
+			return Global.floatController.u(x);
+			//return Global.WATER_LINE;
 		}
 		
 	}
