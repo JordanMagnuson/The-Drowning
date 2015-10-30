@@ -7,12 +7,18 @@ package
 	public class Assets 
 	{
 		// Misc
-		[Embed(source = "../assets/background.png")] public static const BACKGROUND:Class;
+		[Embed(source = "../assets/background_transparent.png")] public static const BACKGROUND:Class;
 		[Embed(source = "../assets/bubble.png")] public static const BUBBLE:Class;
+		
+		// Person
+		[Embed(source = "../assets/person.png")] public static const PERSON:Class;
+		[Embed(source = "../assets/person_underwater.png")] public static const PERSON_UNDERWATER:Class;
 		
 		// Cursor images
 		[Embed(source = "../assets/hand_cursor_open.png")] public static const HAND_CURSOR_OPEN:Class;
+		[Embed(source = "../assets/hand_cursor_open_underwater.png")] public static const HAND_CURSOR_OPEN_UNDERWATER:Class;
 		[Embed(source = "../assets/hand_cursor_closed.png")] public static const HAND_CURSOR_CLOSED:Class;
+		[Embed(source = "../assets/hand_cursor_closed_underwater.png")] public static const HAND_CURSOR_CLOSED_UNDERWATER:Class;
 		
 		// Wave images
 		[Embed(source = "../assets/wave_01.png")] public static const WAVE_01:Class;
