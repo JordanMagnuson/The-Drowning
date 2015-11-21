@@ -32,7 +32,7 @@ package
 			addTween(drowningFader);
 			super.added();
 
-			escapeAlarm = new Alarm(Global.MAX_TIME_IN_HAND, escape);
+			escapeAlarm = new Alarm(Global.escapeTime, escape);
 			addTween(escapeAlarm);
 			escapeAlarm.start();			
 		}
@@ -47,7 +47,7 @@ package
 				if (health > Global.MIN_HEALTH)
 					health -= Global.HEALTH_LOSS_RATE;
 					
-				if (health > 52)
+				if (health > Global.MIN_HEALTH)
 				{
 					if (!sndHeartbeat.playing || sndHeartbeat.volume == 0) 
 					{
@@ -101,13 +101,16 @@ package
 		public function escape():void 
 		{
 			// Swim free.
-			if (!Global.personGrabbed) {
+			if (!Global.personGrabbed || this.health < Global.MIN_HEALTH) {
 				return;
 			}
 			
 			if (this.underWater()) {
+				Global.mouseController.escapeJerk();
+				Global.escapeTime += 3;
+				
 				var swimmer:PersonSwimming;
-				FP.world.add(swimmer = new PersonSwimming(this.x, this.y, this.image.angle, Global.BASE_HEALTH, this.maxHealth));
+				FP.world.add(swimmer = new PersonSwimming(this.x, this.y, this.image.angle, this.health, this.maxHealth));
 				swimmer.sndHeartbeat = this.sndHeartbeat;
 				Global.personGrabbed = null;	
 				trace('people killed ' + Global.peopleKilled);

@@ -2,6 +2,7 @@ package
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Backdrop;
+	import net.flashpunk.graphics.Image;
 	import net.flashpunk.Sfx;
 	import net.flashpunk.World;
 	import net.flashpunk.FP;
@@ -21,7 +22,7 @@ package
 		override public function begin():void
 		{
 			// Fade In
-			add(new FadeIn(Colors.BLACK, 10, 5));
+			add(new FadeIn(Colors.BLACK, 1, 0));
 			
 			// Background
 			add(new Background);
@@ -65,7 +66,8 @@ package
 			for each (var xPos:Number in xPosArray)
 			{ 
 				var yPos:Number = Global.WATER_LINE + FP.random * Global.FLOAT_LEVEL_VARIATION;
-				phaseDelay = xPos / Global.PHASE_DELAY_DIVIDER;
+				//phaseDelay = xPos / Global.PHASE_DELAY_DIVIDER;
+				phaseDelay = 0;
 				trace('game add personFloating');
 				add(new PersonFloating(xPos, yPos, phaseDelay));
 				

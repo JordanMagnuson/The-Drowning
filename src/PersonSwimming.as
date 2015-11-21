@@ -39,14 +39,14 @@ package
 			
 			if (health > Global.MIN_HEALTH)
 			{
-				health -= Global.HEALTH_LOSS_RATE * 2;
+				health -= Global.HEALTH_LOSS_RATE;
 			}
 			else
 			{
-				trace('would have died?');
-				//FP.world.add(new PersonDrowning(x, y, image.angle, health, maxHealth, image.scale));
-				//sndHeartbeat.stop();
-				//this.destroy();
+				//trace('would have died?');
+				FP.world.add(new PersonDrowning(x, y, image.angle, health, maxHealth, image.scale));
+				sndHeartbeat.stop();
+				this.destroy();
 			}
 			
 			if (mover && scaredMover && scared)

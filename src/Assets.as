@@ -19,6 +19,8 @@ package
 		[Embed(source = "../assets/hand_cursor_open_underwater.png")] public static const HAND_CURSOR_OPEN_UNDERWATER:Class;
 		[Embed(source = "../assets/hand_cursor_closed.png")] public static const HAND_CURSOR_CLOSED:Class;
 		[Embed(source = "../assets/hand_cursor_closed_underwater.png")] public static const HAND_CURSOR_CLOSED_UNDERWATER:Class;
+		[Embed(source = "../assets/hand_cursor_escaped.png")] public static const HAND_CURSOR_ESCAPED:Class;
+		[Embed(source = "../assets/hand_cursor_escaped_underwater.png")] public static const HAND_CURSOR_ESCAPED_UNDERWATER:Class;		
 		
 		// Wave images
 		[Embed(source = "../assets/wave_01.png")] public static const WAVE_01:Class;

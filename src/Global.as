@@ -9,17 +9,18 @@ package
 		// Constants
 		public static const WATER_LINE:Number = 100;		
 		public static const FLOAT_LEVEL_VARIATION:Number = 40;
-		public static const NUMBER_OF_PEOPLE:Number = 8;		// 8
+		public static const NUMBER_OF_PEOPLE:Number = 1;		// 8
 		public static const PHASE_DELAY_DIVIDER:Number = 200;	// for each pixel to the right, a person's wave phase is delayed by 1/200 of a second
 		public static const UNDERWATER_ALPHA:Number = 0.4;
+		public static const MAX_BLOOD_ALPHA:Number = 0.5;
 		
 		public static const PERSON_WIDTH:Number = 10;
 		public static const PERSON_HEIGHT:Number = 10;
 		public static const BASE_HEALTH:Number = 100;
 		public static const HEALTH_VARIATION:Number = 25;
-		public static const MIN_HEALTH:Number = 50;
+		public static const MIN_HEALTH:Number = 0;
 		public static const FADE_HEALTH:Number = 60; 					// Health at which person starts to fade (lose heartbeat strength, etc.)
-		public static const HEALTH_LOSS_RATE:Number = 0.05; 			// Health lost per second while under water. 0.05
+		public static const HEALTH_LOSS_RATE:Number = 0.04; 			// Health lost per second while under water. 0.05
 		public static const HEALTH_GAIN_RATE:Number = 0.1; 	
 		
 		public static const BREATH_SCALE_MIN:Number = 0.8;
@@ -29,7 +30,7 @@ package
 		public static const MAX_SCARED_MOVE:Number = 80;	// 150
 		public static const SCARE_MOVE_SPEED:Number = 100;
 		public static const DEAD_BEFORE_SCARE:Number = 1;	// 1
-		public static const DEAD_BEFORE_ALWAYS_SACRED:Number = 5;
+		public static const DEAD_BEFORE_ALWAYS_SACRED:Number = 3;
 		public static var scareDistance:Number = 20;
 		public static var scareDistanceAfter:Number = 80; 	// How far blocks will move to (from hand) once scared
 		
@@ -47,6 +48,14 @@ package
 		public static var bloodOverlay:BloodOverlay;
 		public static var ambientController:AmbientController;
 		public static var gameEndController:GameEndController;
+		
+		// New stuff for The Drowning.
+		//public static const MIN_TIME_IN_HAND:Number = 1;
+		//public static const MAX_TIME_IN_HAND:Number = 15;
+		public static var escapeTime:Number = 3;
+		public static var globalPerson:Person;	// Keeps track of the global person now, since we only have one.	
+		
+		
 	}
 
 }

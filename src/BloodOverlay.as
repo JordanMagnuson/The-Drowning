@@ -36,16 +36,21 @@ package
 		override public function update():void
 		{
 			//trace('alpha: ' + canvas.alpha);
-			canvas.alpha = colorTween.alpha;
+			//canvas.alpha = colorTween.alpha;
+			var bloodAlpha:Number = 1 - (Global.globalPerson.health / Global.BASE_HEALTH);
+			bloodAlpha = FP.scale(bloodAlpha, 0, 1, 0, MAX_BLOOD_ALPHA);
+			canvas.alpha = bloodAlpha;
 			super.update();
 		}
 		
-		public function updateAlpha():void
-		{
-			trace('update alpha');
-			var newAlpha:Number = Math.pow(Global.peopleKilled, 0.7) / 10;
-			colorTween.tween(TWEEN_DURATION, Colors.WHITE, Colors.WHITE, canvas.alpha, newAlpha);
-		}
+		//public function updateAlpha():void
+		//{
+			//trace('update alpha');
+			//var newAlpha:Number = Math.pow(Global.peopleKilled, 0.9) / 10;
+			//var newAlpha:Number = Global.globalPerson.health / 100;
+			//trace("new alpha: " + newAlpha);
+			//colorTween.tween(TWEEN_DURATION, Colors.WHITE, Colors.WHITE, canvas.alpha, newAlpha);
+		//}
 		
 	}
 

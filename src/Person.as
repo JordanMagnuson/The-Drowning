@@ -63,7 +63,7 @@ package
 		override public function update():void
 		{
 			//if (health <= Global.MIN_HEALTH) image.alpha = health / 100;
-			
+			//trace("health: " + health);
 			if (x < 0) x = 0;
 			if (x > FP.width) x = FP.width;			
 			
